@@ -1,0 +1,205 @@
+<?php
+/**
+ * Copyright © 2016 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+?>
+<?php
+/**
+ * Blog post list template
+ *
+ * @var $block \Lovevox\QuestionsAnswers\Block\View
+ */
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $block->getProduct();
+$collection = $block->getQuestionList($product->getId());
+$qakey=0;
+?>
+<div class="questionanswer">
+    <div class="title">
+        <span>QUESTIONS & ANSWERS</span>
+    </div>
+    <div class="contenthead">
+        <span>Have a question about this product? </span><a href="javascript:void(0)">Ask us now</a>
+    </div>
+    <div class="qaform">
+        <form action="questionsanswers/questions/add" method="post" id="addquestionform"
+              data-mage-init='{"validation":{}}'>
+            <div class="field _required">
+                <label for="name">Name:</label>
+                <div>
+                    <input type="text" value="" name="name" aria-required="true" data-validate="{required:true}">
+                </div>
+            </div>
+            <div class="field _required">
+                <label for="email">Email:</label>
+                <div>
+                    <input type="text" value="" name="email" aria-required="true" data-validate="{required:true,email:true}">
+                </div>
+            </div>
+            <div class="field _required">
+                <label for="question">Question:</label>
+                <div>
+                <textarea  type="text" value="" name="question" rows="3" aria-required="true" data-validate="{required:true}"></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <div class="privateoption">
+                    <input type="checkbox" value="0" class="qashow" name="is_show" id="is_show" aria-required="true">
+                    <label for="is_show">Make it private<i></i></label>
+                    <div class="qashowexplain"><span>We won't show it publicly once answered.</span></div>
+                </div>
+            </div>
+            <div class="field tip">
+                <span>*We will notify you via email once there's an answer.</span>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="button" id="submit-questions">SUBMIT</button>
+                </div>
+                <div class="primary">
+                    <a id="cancelauestions">CANCEL</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <?php if ($collection->count() > 0): ?>
+        <ul class="qalist" data-count="<?= $collection->count(); ?>">
+            <?php foreach ($collection->getItems() as $item): ?>
+                <?php 
+                    $time=strtotime($item['reply_date']);
+                    $month=date("F",$time);
+                    $year=date("Y",$time); 
+                ?>
+            <li class="item <?php if($qakey>1):?>overqa<?php endif;?>">
+                    <div class="question"><span data-title="<?= $item['title']; ?>"><?php if(mb_strlen($item['title'],"utf-8")>360):?><?= substr($item['title'],0,360).'...'; ?><?php else:?><?= $item['title']; ?><?php endif;?> </span><a href="javascript:void(0)">see more</a></div>
+                    <div class="answers"><span data-title="<?= $item['reply_content']; ?>"><?php if(mb_strlen($item['reply_content'],"utf-8")>360):?><?= substr($item['reply_content'],0,360).'...'; ?><?php else:?><?= $item['reply_content']; ?><?php endif;?></span><a href="javascript:void(0)">see more</a></div>
+                    <div class="date">By <?= $item['reply_name']; ?> from AW Bridal, <?= $month.' '.$year; ?></div>
+                </li>
+             <?php $qakey++;?>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+    <?php if($collection->count()>2):?>
+    <div class="seemore">
+        <span>See More Questions & Answers（<i><?php echo ($collection->count() - 2);?></i>）</span>
+    </div>
+    <div class="collallqa">
+        <span>Collapse All Questions</span>
+    </div>
+    <?php endif; ?>
+</div>
+<script>
+    require(['jquery'], function ($) {
+        $(document).on("click", "#submit-questions", function () {
+            var $_this = $(this);
+            $('#addquestionform .actions-toolbar .primary:last-child').next().remove();
+            var form = jQuery('#addquestionform');
+            var isValid = form.valid();
+            if (isValid) {
+                var data = form.serializeArray();
+                var formData = new FormData();
+                for (var i = 0; i < data.length; i++) {
+                    formData.append(data[i].name, data[i].value);
+                }
+                formData.append('form_key', $('input[name="form_key"]').val());
+                formData.append('product_id', '<?=$product->getId();?>');
+                $.ajax({
+                    url: form.attr('action'),
+                    data: formData,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.code == 200) {
+                            document.getElementById("addquestionform").reset();
+                            $(".qaform").slideUp();
+                            //$('<span>Question received! We will reply in 36 hours!</span>').insertAfter('#addquestionform .actions-toolbar .primary:last-child');
+                            $('<span class="message">Question received! We will reply in 36 hours!</span>').insertAfter('.contenthead');
+                        } else {
+                            $('<span>'+response.content+'</span>').insertAfter('#addquestionform .actions-toolbar .primary:last-child');
+                        }
+                    },
+                    error: function (response) {
+                        $('<span>'+response.content+'</span>').insertAfter('#addquestionform .actions-toolbar .primary:last-child');
+                    }
+                });
+            }
+        });
+        $("input[name='is_show']").click(function () {
+            $(this).attr('checked') ? $(this).val(1) : $(this).val(0);
+        })
+        $(".contenthead a").click(function () {
+            $('.contenthead+.message').remove();
+            $(".qaform").slideToggle();
+        });
+        $("#cancelauestions").click(function(){
+            $(".qaform").slideUp();
+        });
+        if(window.innerWidth<=1024){
+            $(" .qashow+label").click(function(){
+                $(".qashowexplain").fadeToggle();
+            });
+        }else{
+            $(" .qashow+label").mouseover(function(){
+                $(".qashowexplain").fadeIn();
+            }).mouseout(function(){
+                $(".qashowexplain").fadeOut();
+            });
+        }
+        var qaTalCount = $(".qalist").attr("data-count");
+        $(".seemore").off().click(function(){
+            seemoreqa($(this));
+        });
+        $('.collallqa').on('click',function(){
+            $(".qalist li:gt(1)").addClass('overqa');
+            $('.seemore').show().find('i').text(qaTalCount-2);
+            $(".seemore").off().click(function(){
+                seemoreqa($(this));
+            });
+            $(this).hide();
+        });
+        function seemoreqa(that){
+            var surpluscount = that.find('i').text();
+            if(surpluscount<2){
+                $(".qalist li").removeClass("overqa");
+                $('.seemore').hide();
+                $('.collallqa').show();
+            }else{
+                var showcount=0
+                $(".qalist li").each(function(){
+                    if($(this).hasClass("overqa")&&showcount<2){
+                        showcount++;
+                        surpluscount--;
+                        $(this).removeClass("overqa");
+                    }
+                });
+                if(surpluscount==0){
+                    $('.seemore').hide();
+                    $('.collallqa').show();
+                }else{
+                    that.find('i').text(surpluscount);
+                }
+            }
+        }
+        $(".qalist li").each(function(){
+            var questionlength = $(this).find('.question span').attr('data-title').length;
+            var answerslength = $(this).find('.answers span').attr('data-title').length;
+            if(questionlength>360){
+                $(this).find('.question span+a').show();
+            }
+            if(answerslength>360){
+                $(this).find('.answers span+a').show();
+            }
+        });
+        $(".qalist li>div a").click(function(){
+            $(this).prev().text($(this).prev().attr('data-title'));
+            $(this).hide();
+        });
+    });
+</script>

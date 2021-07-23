@@ -1,0 +1,45 @@
+{{template config_path="design/email/header_template"}}
+<table class="message-details">
+    <tr>
+        <td><strong>{{trans "Dear"}} {{var name}},</strong></td>
+    </tr>
+    <tr>
+        <td>{{trans "Thank you for contacting AW Bridal Support Team! "}}</td>
+    </tr>
+
+    <tr>
+        <td><strong>{{trans "Your Question: "}}</strong></td>
+    </tr>
+    <tr>
+        <td>{{var question}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Sumit Date:"}}</strong></td>
+
+    </tr>
+    <tr>
+        <td>{{var submit_date}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Answer to your Question:"}}</strong></td>
+    </tr>
+    <tr>
+        <td>{{var reply}}</td>
+    </tr>
+    <tr>
+        <td>------------------------------------------------------------</td>
+    </tr>
+    <tr>
+        <td>{{trans "You can reply this email to send a reply to our support team. "}}</td>
+    </tr>
+</table>
+<style type="text/css">
+    .message-details {
+        margin-top: 50px;
+    }
+    
+    .message-details td {
+        font-size: 15px;
+    }
+</style>
+{{template config_path="design/email/footer_template"}}

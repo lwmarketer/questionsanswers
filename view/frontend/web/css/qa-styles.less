@@ -1,0 +1,330 @@
+.questionanswer {
+    margin-bottom: 80px;
+}
+
+.questionanswer .title {
+    font-family: 'ButlerRegular';
+    text-align: left;
+    font-size: 1.125rem;
+    color: #333333;
+    border-bottom: 1px #eeeeee solid;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.questionanswer .contenthead {
+    font-size: 1.125rem;
+    color: #474747;
+    margin: 20px 0 30px;
+}
+
+.questionanswer .contenthead a {
+    color: #7aa6ad;
+    display: block;
+    width: 220px;
+    line-height: 50px;
+    text-align: center;
+    margin-top: 30px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-family: 'SofiaPro-r';
+}
+
+.questionanswer .message {
+    color: #6aa7ad;
+    font-family: 'SofiaPro-r';
+    font-size: 0.875rem;
+}
+
+.questionanswer .qaform {
+    width: 50%;
+    display: none;
+}
+
+.questionanswer .qaform form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.questionanswer .qaform form>div:nth-child(-n+2) {
+    flex: 0 0 49%;
+}
+
+.questionanswer .qaform form>div:nth-child(n+3) {
+    flex: 0 0 100%;
+}
+
+.questionanswer .qaform form>div:nth-child(n+4) {
+    height: 40px;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.questionanswer .qaform form>div:nth-child(-n+3) label:before {
+    content: '*';
+    color: #f97a7a;
+    margin-right: 3px;
+}
+
+.questionanswer .qaform form>div {
+    margin-bottom: 20px;
+}
+
+.questionanswer .qaform form>div input,
+.questionanswer .qaform form>div textarea {
+    border: 1px #d2d2d2 solid;
+}
+
+.questionanswer .qaform form>div label {
+    color: #666;
+    font-size: 0.875rem;
+    font-family: 'SofiaPro-r';
+}
+
+.questionanswer .qaform form>div .primary button {
+    width: 200px;
+    height: 50px;
+}
+
+.questionanswer .qaform form>div.tip {
+    font-family: 'SofiaPro-r';
+    font-size: 0.875rem;
+    color: #333;
+}
+
+.questionanswer .qaform form>div .qashow+label {
+    position: relative;
+}
+
+.questionanswer .qaform form>div .qashow+label i {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background: url(../../../../../../../../../pub/media/wysiwyg/qa.svg)no-repeat;
+    margin-top: 2px;
+    content: '';
+    right: -20px;
+    position: absolute;
+    top: -1px;
+}
+
+.questionanswer .qaform form>div .privateoption {
+    display: flex;
+}
+
+.questionanswer .qaform form>div .qashowexplain {
+    margin-left: 40px;
+    color: #7a7c7c;
+    font-size: 0.75rem;
+    font-family: 'SofiaPro-r';
+    margin-top: -6px;
+    border: 1px #CCCCCC solid;
+    background: #FBF9F7;
+    border-radius: 2px;
+    padding: 5px 10px;
+    position: relative;
+    display: none;
+}
+
+.questionanswer .qaform form>div .qashowexplain:before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 3px;
+    transform: rotate(180deg);
+    border: 10px solid transparent;
+    border-left-color: #aaa;
+    width: 0;
+    height: 0;
+    padding: 0;
+}
+
+.questionanswer .qaform form>div .qashowexplain:after {
+    content: '';
+    position: absolute;
+    left: -19px;
+    top: 3px;
+    transform: rotate(180deg);
+    border: 10px solid transparent;
+    border-left-color: #FBF9F7;
+    width: 0;
+    height: 0;
+    padding: 0;
+}
+
+.questionanswer .qalist {
+    margin-top: 50px;
+}
+
+.questionanswer .qalist li {
+    background: #fbf9f7;
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: 'SofiaPro-r';
+}
+
+.questionanswer .qaform form>div .primary a {
+    height: 50px;
+    display: inline-block;
+    line-height: 50px;
+    font-size: 0.875rem;
+    color: #7aa6ad;
+    font-family: 'SofiaPro-r';
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 0 20px;
+    border: 1px #6aa7ad solid;
+    line-height: 48px;
+}
+
+.questionanswer .qaform form>div .primary a:hover {
+    color: #fff;
+    background: #7aa6ad;
+}
+
+.questionanswer .qalist li.overqa {
+    display: none;
+}
+
+.questionanswer .qalist li .question:before {
+    content: 'Q:';
+    text-align: center;
+    background: #ffc37b;
+    color: #fff;
+    padding: 0 2px;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 20px;
+    display: inline-block;
+}
+
+.questionanswer .qalist li .answers:before {
+    content: 'A:';
+    text-align: center;
+    background: #AAAAAA;
+    color: #fff;
+    padding: 0 2px;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 20px;
+    display: inline-block;
+}
+
+.questionanswer .qalist li div:nth-child(-n+2) {
+    margin-bottom: 10px;
+}
+
+.questionanswer .qalist li div:nth-child(-n+2) a {
+    display: none;
+}
+
+.questionanswer .qalist li div:nth-child(-n+2) span {
+    font-size: 0.875rem;
+}
+
+.questionanswer .qalist li div.date {
+    font-size: 0.75rem;
+    color: #aaaaaa;
+}
+
+.questionanswer .collallqa {
+    display: none;
+}
+
+.questionanswer .seemore,
+.questionanswer .collallqa {
+    color: #7aa6ad;
+    cursor: pointer;
+}
+
+.questionanswer .seemore i {
+    font-style: unset;
+}
+
+.questionanswer .seemore span:hover,
+.questionanswer .collallqa span:hover {
+    text-decoration: underline;
+}
+
+@media (max-width:1023px) {
+    .questionanswer .qaform form>div:nth-child(n+4) {
+        height: auto;
+        margin-bottom: 20px;
+    }
+    .questionanswer .qaform form>div:last-child span {
+        bottom: -20px;
+    }
+    .questionanswer .qaform form>div .qashowexplain {
+        flex: 0 0 100%;
+        margin: 10px 0;
+    }
+    .questionanswer .qaform {
+        width: 100%;
+    }
+    .questionanswer .qaform form {
+        padding: 15px;
+    }
+    .questionanswer .qalist li div:nth-child(-n+2) {
+        font-size: 0.875rem;
+    }
+    .questionanswer .qaform form>div .primary a {
+        margin: 0;
+        height: auto;
+        line-height: inherit;
+        width: 100%;
+        border: 1px #6aa7ad solid;
+        line-height: 48px;
+    }
+    .questionanswer .qaform form>div .qashowexplain:before {
+        transform: rotate(-90deg);
+        top: -20px;
+        left: 112px;
+    }
+    .questionanswer .qaform form>div:nth-child(-n+2) {
+        flex: 0 0 100%;
+    }
+    .questionanswer .qaform form>div .qashowexplain:after {
+        transform: rotate(-90deg);
+        top: -19px;
+        left: 112px;
+    }
+    .questionanswer .qaform form>div .primary button {
+        width: 100%;
+    }
+    .questionanswer .qaform form>div .privateoption {
+        flex-wrap: wrap;
+    }
+    .questionanswer .qaform form {
+        border: 1px #d2d2d2 solid;
+    }
+    .questionanswer .qaform form .actions-toolbar .primary:first-child {
+        width: 30%;
+        display: inline-block;
+    }
+    .questionanswer .qaform form .actions-toolbar .primary:last-child {
+        width: calc(20% - 5px);
+        margin-left: 10px;
+        display: inline-block;
+    }
+    .questionanswer .contenthead {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width:767px) {
+    .questionanswer .qaform form .actions-toolbar .primary:first-child,
+    .questionanswer .qaform form .actions-toolbar .primary:last-child {
+        width: 100%;
+        margin-left: 0;
+    }
+    .questionanswer .title {
+        font-size: 0.875rem;
+        line-height: 1;
+        margin-left: 0;
+    }
+    .questionanswer .contenthead a {
+        width: 100%;
+    }
+}
